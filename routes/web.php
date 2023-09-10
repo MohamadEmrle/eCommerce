@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,4 +28,10 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'],function(){
 // Dashboard Controller
 Route::group(['prefix' => 'admin' , 'namespace' => 'Admin' , 'middleware' => 'check_admin'],function(){
     Route::get('/',[DashboardController::class,'index'])->name('admin.dashboard');
+// admin.settings.delivery
+    Route::get('settings/delivery/{type}',[SettingController::class,'delivery'])->name('admin.settings.delivery');
+    Route::post('settings/delivery/store',[SettingController::class,'delivery_store'])->name('admin.settings.delivery.store');
+
+
+    Route::get('logout',[DashboardController::class,'logout'])->name('admin.logout');
 });

@@ -2,8 +2,8 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-            <li class="nav-item active"><a href=""><i class="la la-mouse-pointer"></i><span class="menu-title"
-                        data-i18n="nav.add_on_drag_drop.main">الرئيسية </span></a>
+            <li class="nav-item active"><a href="{{ route('admin.dashboard') }}"><i class="la la-mouse-pointer"></i><span
+                        class="menu-title" data-i18n="nav.add_on_drag_drop.main">الرئيسية </span></a>
             </li>
             <li class=" nav-item"><a href="#"><i class="la la-television"></i><span class="menu-title"
                         data-i18n="nav.templates.main">الإعدادات</span></a>
@@ -13,17 +13,21 @@
                             @php
                                 $i = 1;
                             @endphp
-                            <li><a class="menu-item" href={{ url('admin/settings/delivery',$i) }} data-i18n="nav.templates.vert.classic_menu">توصيل مجاني</a>
+                            <li><a class="menu-item" href={{ url('admin/settings/delivery', $i) }}
+                                    data-i18n="nav.templates.vert.classic_menu">توصيل مجاني</a>
                             </li>
-                            <li><a class="menu-item" href={{ url('admin/settings/delivery',$i+1) }}>توصيل داخلي</a>
+                            <li><a class="menu-item" href={{ url('admin/settings/delivery', $i + 1) }}>توصيل
+                                    داخلي</a>
                             </li>
-                            <li><a class="menu-item" href={{ url('admin/settings/delivery',$i+2) }}
+                            <li><a class="menu-item" href={{ url('admin/settings/delivery', $i + 2) }}
                                     data-i18n="nav.templates.vert.compact_menu">توصيل خارجي</a>
                             </li>
 
 
                         </ul>
                     </li>
+
+
 
                     {{--
             <li class="nav-item  open ">

@@ -25,13 +25,21 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin'],function(){
     Route::get('login',[LoginController::class,'login'])->name('admin.login');
     Route::post('login',[LoginController::class,'store'])->name('admin.store.login');
 });
-// Dashboard Controller
+// Start Dashboard Controller
 Route::group(['prefix' => 'admin' , 'namespace' => 'Admin' , 'middleware' => 'check_admin'],function(){
     Route::get('/',[DashboardController::class,'index'])->name('admin.dashboard');
-// admin.settings.delivery
-    Route::get('settings/delivery/{type}',[SettingController::class,'delivery'])->name('admin.settings.delivery');
-    Route::post('settings/delivery/store',[SettingController::class,'delivery_store'])->name('admin.settings.delivery.store');
-
-
+    Route::get('/profile',[DashboardController::class,'profile'])->name('admin.profile');
+    Route::post('/profile/update',[DashboardController::class,'update'])->name('admin.profile.update');
+    Route::get('/profile/changePassword',[DashboardController::class,'change_password'])->name('admin.profile.change_password');
+    Route::post('/profile/changePassword/store',[DashboardController::class,'password_store'])->name('admin.profile.change_password.store');
     Route::get('logout',[DashboardController::class,'logout'])->name('admin.logout');
 });
+// End Dashboard Controller
+// Start SettingController
+Route::group(['prefix' => 'admin' , 'namespace' => 'Admin' , 'middleware' => 'check_admin'],function(){
+    Route::get('settings/delivery/{type}',[SettingController::class,'delivery'])->name('admin.settings.delivery');
+    Route::post('settings/delivery/store',[SettingController::class,'delivery_store'])->name('admin.settings.delivery.store');
+// End SettingController
+});
+
+

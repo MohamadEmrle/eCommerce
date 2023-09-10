@@ -21,7 +21,7 @@
 
                                         </div>
                                         <div class="col-5 text-right">
-                                            <h4>{{Auth::id() }}</h4>
+                                            <h4>{{auth('admin')->user()->id }}</h4>
 
                                         </div>
                                     </div>

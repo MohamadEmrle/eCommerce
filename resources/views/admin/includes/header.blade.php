@@ -9,7 +9,7 @@
                     <a class="navbar-brand" href="index.html">
                         <img class="brand-logo" alt="modern admin logo"
                             src="{{ asset('assets/admin/images/logo/logo.png') }}">
-                        <h3 class="brand-text">Modern Admin</h3>
+                        <h3 class="brand-text">{{ auth('admin')->user()->name }}</h3>
                     </a>
                 </li>
                 <li class="nav-item d-md-none">
@@ -30,13 +30,16 @@
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <span class="mr-1">
-                                <span class="user-name text-bold-700"> Ahmed Emam</span>
+                                <span class="user-name text-bold-700"> {{ auth('admin')->user()->name }}</span>
                             </span>
                             <span class="avatar avatar-online">
-                                <img style="height: 35px;" src="" alt="avatar"><i></i></span>
+
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href=""><i
-                                    class="ft-user"></i> تعديل الملف الشحصي </a>
+                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
+                                href="{{ route('admin.profile') }}"><i class="ft-user"></i> تعديل الملف الشحصي </a>
+
+                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
+                                href="{{ route('admin.profile.change_password') }}"><i class="ft-user"></i>تغيير كلمة المرور</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="ft-power"></i> تسجيل
                                 الخروج </a>

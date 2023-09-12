@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
@@ -43,3 +44,24 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin' , 'middleware' => 'ch
 });
 
 
+// Start CategoryController
+Route::group(['prefix' => 'admin' , 'namespace' => 'Admin' , 'middleware' => 'check_admin'],function(){
+    // Start Categories Main
+    Route::get('/categories/main',[CategoryController::class,'main'])->name('admin.categories.main');
+    Route::get('/categories/main/create',[CategoryController::class,'main_create'])->name('admin.categories.main.create');
+    Route::post('/categories/main/store',[CategoryController::class,'main_store'])->name('admin.categories.main.store');
+    Route::get('/categories/main/edit/{id}',[CategoryController::class,'main_edit'])->name('admin.categories.main.edit');
+    Route::post('/categories/main/update/{id}',[CategoryController::class,'main_update'])->name('admin.categories.main.update');
+    Route::get('/categories/main/active_desactive/{id}',[CategoryController::class,'main_active_desactive'])->name('admin.categories.main.active_desactive');
+    Route::get('/categories/main/destroy/{id}',[CategoryController::class,'main_destroy'])->name('admin.categories.main.destroy');
+    // End Categories Main
+    // Start Categories Sub
+    Route::get('/categories/sub',[CategoryController::class,'sub'])->name('admin.categories.sub');
+    Route::get('/categories/sub/create',[CategoryController::class,'sub_create'])->name('admin.categories.sub.create');
+    Route::post('/categories/sub/store',[CategoryController::class,'sub_store'])->name('admin.categories.sub.store');
+    Route::get('/categories/sub/edit/{id}',[CategoryController::class,'sub_edit'])->name('admin.categories.sub.edit');
+    Route::post('/categories/sub/update/{id}',[CategoryController::class,'sub_update'])->name('admin.categories.sub.update');
+    Route::get('/categories/sub/active_desactive/{id}',[CategoryController::class,'sub_active_desactive'])->name('admin.categories.sub.active_desactive');
+    Route::get('/categories/sub/destroy/{id}',[CategoryController::class,'sub_destroy'])->name('admin.categories.sub.destroy');
+    // End Categories Sub
+});

@@ -38,11 +38,21 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label>المجوعة الرئيسية</label>
-                                                <select name="praent_id" class="form-control">
-                                                    @foreach ($categories as $category )
-                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                <label>العلامات التجارية</label>
+                                                <select id="brand_id" name="brand_id" class="form-control">
+                                                    <option>اختار...</option>
+                                                    @foreach ($brands as $brand )
+                                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                                     @endforeach
+                                                </select>
+                                                @error('brand_id')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label>المجوعة الرئيسية</label>
+                                                <select id="praent_id" name="praent_id" class="form-control">
+                                                    <option></option>
                                                 </select>
                                                 @error('praent_id')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -92,3 +102,32 @@
         </div>
     </div>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(e) {
+
+        $('#brand_id').change(function() {
+            var id = $(this).val();
+			console.log(id);
+            if(id) {
+                $.ajax({
+                    url: "{{ url('admin/categories/sub/ajax') }}/"+id,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $("#praent_id").find('option:not(:first)').remove();
+						if (data['categories'])
+						{
+							$.each(data['categories'],function(key,value){
+								$("#praent_id").append("<option value='"+value['id']+"'>"+value['name']+"</option>");
+							});
+						}
+
+                    }
+                });
+            }else{
+                $('#praent_id').empty();
+            }
+        });
+    });
+</script>

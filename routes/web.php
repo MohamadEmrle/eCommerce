@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
@@ -59,9 +60,20 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin' , 'middleware' => 'ch
     Route::get('/categories/sub',[CategoryController::class,'sub'])->name('admin.categories.sub');
     Route::get('/categories/sub/create',[CategoryController::class,'sub_create'])->name('admin.categories.sub.create');
     Route::post('/categories/sub/store',[CategoryController::class,'sub_store'])->name('admin.categories.sub.store');
+    Route::get('/categories/sub/ajax/{id}',[CategoryController::class,'sub_ajax'])->name('admin.categories.sub.ajax');
     Route::get('/categories/sub/edit/{id}',[CategoryController::class,'sub_edit'])->name('admin.categories.sub.edit');
     Route::post('/categories/sub/update/{id}',[CategoryController::class,'sub_update'])->name('admin.categories.sub.update');
     Route::get('/categories/sub/active_desactive/{id}',[CategoryController::class,'sub_active_desactive'])->name('admin.categories.sub.active_desactive');
     Route::get('/categories/sub/destroy/{id}',[CategoryController::class,'sub_destroy'])->name('admin.categories.sub.destroy');
     // End Categories Sub
+});
+
+Route::group(['prefix' => 'admin' , 'namespace' => 'Admin' , 'middleware' => 'check_admin'],function(){
+    Route::get('/brand/index',[BrandController::class,'index'])->name('admin.brands');
+    Route::get('/brand/create',[BrandController::class,'create'])->name('admin.brands.create');
+    Route::post('/brand/store',[BrandController::class,'store'])->name('admin.brands.store');
+    Route::get('/brand/edit/{id}',[BrandController::class,'edit'])->name('admin.brands.edit');
+    Route::post('/brand/update/{id}',[BrandController::class,'update'])->name('admin.brands.update');
+    Route::get('/brand/active_desactive/{id}',[BrandController::class,'active_desactive'])->name('admin.brands.active_desactive');
+    Route::get('/brand/destroy/{id}',[BrandController::class,'destroy'])->name('admin.brands.destroy');
 });

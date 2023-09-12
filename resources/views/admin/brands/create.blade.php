@@ -17,7 +17,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> إضافة قسم رئيسي </h4>
+                                    <h4 class="card-title" id="basic-layout-form">إضافة العلامة التجارية</h4>
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
 
@@ -27,29 +27,19 @@
                                 @include('admin.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{ route('admin.categories.main.store') }}"
+                                        <form class="form" action="{{ route('admin.brands.store') }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
-                                                <label> صوره القسم </label>
+                                                <label> صوره العلامة </label>
                                                 <input type="file" class="form-control" name="image">
                                                 @error('image')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
-                                            <div class="form-group">
-                                                <label>العلامات التجارية</label>
-                                                <select name="brand_id" class="form-control">
-                                                    @foreach ($brands as $brand )
-                                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('brand_id')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
+
                                             <div class="form-body">
-                                                <label> أسم القسم </label>
+                                                <label> أسم العلامة </label>
                                                 <input type="text" class="form-control" name="name"
                                                     autocomplete="off">
                                                 <span class="file-custom"></span>
@@ -58,7 +48,7 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                             <div class="form-body">
-                                                <label> وصف القسم </label>
+                                                <label> وصف العلامة </label>
                                                 <input type="text" class="form-control" name="description"
                                                     autocomplete="off">
                                                 <span class="file-custom"></span>
@@ -66,15 +56,7 @@
                                             @error('description')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
-                                            <div class="form-body">
-                                                <label> موضع القسم </label>
-                                                <input type="text" class="form-control" name="position"
-                                                    autocomplete="off">
-                                                <span class="file-custom"></span>
-                                            </div>
-                                            @error('position')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+
                                             <div class="form-actions">
 
                                                 <input type="submit" class="btn btn-primary" value="حفظ">

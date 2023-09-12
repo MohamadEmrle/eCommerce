@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Categories\main\UpdateRequest;
 use App\Http\Requests\Admin\Categories\sub\StoreRequest as SubStoreRequest;
 use App\Http\Requests\Admin\Categories\sub\UpdateRequest as SubUpdateRequest;
 use App\Http\Traits\imageTrait;
+use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +25,8 @@ class CategoryController extends Controller
     }
     public function main_create()
     {
-        return view('admin.categories.main.create');
+        $brands = Brand::where('is_active',1)->get();
+        return view('admin.categories.main.create',compact('brands'));
     }
     public function main_store(StoreRequest $request)
     {
@@ -45,7 +47,9 @@ class CategoryController extends Controller
         if ($request->hasFile('image')) {
             File::delete('assets/images/categories/main/'.$record->image);
         }
-        $data['image'] = $this->saveImage($data['image'],'assets/images/categories/main');
+        if(isset($request->image)) {
+            $data['image'] = $this->saveImage($request->image,'assets/images/categories/main');
+        }
         $record->update($data);
         return redirect()->route('admin.categories.main');
     }
@@ -79,8 +83,16 @@ class CategoryController extends Controller
     }
     public function sub_create()
     {
-        $categories = Category::whereNull('praent_id')->get();
-        return view('admin.categories.sub.create',compact('categories'));
+        $brands = Brand::all();
+        return view('admin.categories.sub.create',compact('brands'));
+    }
+    public function sub_ajax($id)
+    {
+        $categories = DB::table('categories')
+                ->where('brand_id',$id)->where('is_active',1)->get();
+        return response()->json([
+            'categories' => $categories
+        ]);
     }
     public function sub_store(SubStoreRequest $request)
     {
@@ -102,7 +114,9 @@ class CategoryController extends Controller
         if ($request->hasFile('image')) {
             File::delete('assets/images/categories/sub/'.$record->image);
         }
-        $data['image'] = $this->saveImage($data['image'],'assets/images/categories/sub');
+        if(isset($request->image)) {
+            $data['image'] = $this->saveImage($data['image'],'assets/images/categories/sub');
+        }
         $record->update($data);
         return redirect()->route('admin.categories.sub');
     }

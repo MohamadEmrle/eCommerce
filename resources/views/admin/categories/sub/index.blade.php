@@ -54,7 +54,7 @@
                                                         الغاء تفعيل
                                                     @endif
                                                 </a>
-                                                <a href="{{ route('admin.categories.sub.destroy', $category->id) }}"
+                                                <a onclick="confirm('هل أنت متأكد من الحذف؟')" href="{{ route('admin.categories.sub.destroy', $category->id) }}"
                                                     class="btn btn-outline-danger">حذف</a>
 
                                             </td>

@@ -27,11 +27,11 @@
                                 @include('admin.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{ route('admin.categories.sub.store') }}"
+                                        <form class="form" action="{{ route('admin.products.update', $record->id) }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
-                                                <label> صوره القسم </label>
+                                                <label> صوره المنتج </label>
                                                 <input type="file" class="form-control" name="image">
                                                 @error('image')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -51,7 +51,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>المجوعة الرئيسية</label>
-                                                <select id="praent_id" name="praent_id" class="form-control">
+                                                <select id="category_id" name="category_id" class="form-control">
                                                     <option></option>
                                                 </select>
                                                 @error('praent_id')
@@ -59,8 +59,8 @@
                                                 @enderror
                                             </div>
                                             <div class="form-body">
-                                                <label> أسم القسم </label>
-                                                <input type="text" class="form-control" name="name"
+                                                <label> أسم المنتج </label>
+                                                <input type="text" class="form-control" value="{{ $record->name }}" name="name"
                                                     autocomplete="off">
                                                 <span class="file-custom"></span>
                                             </div>
@@ -68,23 +68,52 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                             <div class="form-body">
-                                                <label> وصف القسم </label>
-                                                <input type="text" class="form-control" name="description"
-                                                    autocomplete="off">
+                                                <label> وصف المنتج </label>
+                                                <textarea  class="form-control" name="description"
+                                                    autocomplete="off">{{ $record->description }}</textarea>
                                                 <span class="file-custom"></span>
                                             </div>
                                             @error('description')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                             <div class="form-body">
-                                                <label> موضع القسم </label>
-                                                <input type="text" class="form-control" name="position"
+                                                <label> ملاحظات المنتج </label>
+                                                <textarea  class="form-control" name="note"
+                                                    autocomplete="off">{{ $record->note }}</textarea>
+                                                <span class="file-custom"></span>
+                                            </div>
+                                            @error('note')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                            <div class="form-body">
+                                                <label> كود المنتج </label>
+                                                <input type="text" class="form-control" value="{{ $record->code_number }}" name="code_number"
                                                     autocomplete="off">
                                                 <span class="file-custom"></span>
                                             </div>
-                                            @error('position')
+                                            @error('code_number')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
+                                            <div class="form-body">
+                                                <label> سعر المنتج </label>
+                                                <input type="text" class="form-control" value="{{ $record->price }}" name="price"
+                                                    autocomplete="off">
+                                                <span class="file-custom"></span>
+                                            </div>
+                                            @error('price')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                            <div class="form-body">
+                                                <label> كمية المنتج </label>
+                                                <input type="text" class="form-control" value="{{ $record->quantity }}" name="quantity"
+                                                    autocomplete="off">
+                                                <span class="file-custom"></span>
+                                            </div>
+                                            @error('quantity')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+
+
                                             <div class="form-actions">
 
                                                 <input type="submit" class="btn btn-primary" value="حفظ">
@@ -115,18 +144,18 @@
                     type: "GET",
                     dataType: "json",
                     success:function(data) {
-                        $("#praent_id").find('option:not(:first)').remove();
+                        $("#category_id").find('option:not(:first)').remove();
 						if (data['categories'])
 						{
 							$.each(data['categories'],function(key,value){
-								$("#praent_id").append("<option value='"+value['id']+"'>"+value['name']+"</option>");
+								$("#category_id").append("<option value='"+value['id']+"'>"+value['name']+"</option>");
 							});
 						}
 
                     }
                 });
             }else{
-                $('#praent_id').empty();
+                $('#category_id').empty();
             }
         });
     });

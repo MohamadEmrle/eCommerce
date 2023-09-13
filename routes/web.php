@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('admin.auth.login');
+    return view('front.home');
 });
 
 // Login Controller
@@ -55,13 +57,48 @@ Route::group(['prefix' => 'admin' , 'namespace' => 'Admin' , 'middleware' => 'ch
     Route::get('/categories/main/active_desactive/{id}',[CategoryController::class,'main_active_desactive'])->name('admin.categories.main.active_desactive');
     Route::get('/categories/main/destroy/{id}',[CategoryController::class,'main_destroy'])->name('admin.categories.main.destroy');
     // End Categories Main
+
     // Start Categories Sub
     Route::get('/categories/sub',[CategoryController::class,'sub'])->name('admin.categories.sub');
     Route::get('/categories/sub/create',[CategoryController::class,'sub_create'])->name('admin.categories.sub.create');
     Route::post('/categories/sub/store',[CategoryController::class,'sub_store'])->name('admin.categories.sub.store');
+    Route::get('/categories/sub/ajax/{id}',[CategoryController::class,'sub_ajax'])->name('admin.categories.sub.ajax');
     Route::get('/categories/sub/edit/{id}',[CategoryController::class,'sub_edit'])->name('admin.categories.sub.edit');
     Route::post('/categories/sub/update/{id}',[CategoryController::class,'sub_update'])->name('admin.categories.sub.update');
     Route::get('/categories/sub/active_desactive/{id}',[CategoryController::class,'sub_active_desactive'])->name('admin.categories.sub.active_desactive');
     Route::get('/categories/sub/destroy/{id}',[CategoryController::class,'sub_destroy'])->name('admin.categories.sub.destroy');
     // End Categories Sub
 });
+
+// Start Brand
+Route::group(['prefix' => 'admin' , 'namespace' => 'Admin' , 'middleware' => 'check_admin'],function(){
+    Route::get('/brands/index',[BrandController::class,'index'])->name('admin.brands');
+    Route::get('/brand/create',[BrandController::class,'create'])->name('admin.brands.create');
+    Route::post('/brand/store',[BrandController::class,'store'])->name('admin.brands.store');
+    Route::get('/brand/edit/{id}',[BrandController::class,'edit'])->name('admin.brands.edit');
+    Route::post('/brand/update/{id}',[BrandController::class,'update'])->name('admin.brands.update');
+    Route::get('/brand/active_desactive/{id}',[BrandController::class,'active_desactive'])->name('admin.brands.active_desactive');
+    Route::get('/brand/destroy/{id}',[BrandController::class,'destroy'])->name('admin.brands.destroy');
+});
+// End Brand
+
+// Start Product
+
+Route::group(['prefix' => 'admin' , 'namespace' => 'Admin' , 'middleware' => 'check_admin'],function(){
+    Route::get('/products/index',[ProductController::class,'index'])->name('admin.products');
+    Route::get('/products/create',[ProductController::class,'create'])->name('admin.products.create');
+    Route::post('/products/store',[ProductController::class,'store'])->name('admin.products.store');
+    Route::get('/products/edit/{id}',[ProductController::class,'edit'])->name('admin.products.edit');
+    Route::post('/products/update/{id}',[ProductController::class,'update'])->name('admin.products.update');
+    Route::get('/products/active_desactive/{id}',[ProductController::class,'active_desactive'])->name('admin.products.active_desactive');
+    Route::get('/products/destroy/{id}',[ProductController::class,'destroy'])->name('admin.products.destroy');
+
+
+});
+
+// End Product
+// End Dashboard Route
+
+// Start Front Route
+
+// Route::get('home',[])

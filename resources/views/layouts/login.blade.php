@@ -75,7 +75,5 @@
 <script>
 
 </script>
-@notify_js
-@notify_render
 </body>
 </html>

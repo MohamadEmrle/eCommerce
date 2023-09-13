@@ -11,50 +11,56 @@
 
 
                     <div class="card-body card-dashboard">
-                        <table class="table">
+                        <table class="table display nowrap ">
                             <thead class="">
                                 <tr>
                                     <th># </th>
-                                    <th>القسم </th>
+                                    <th>المنيج </th>
                                     <th>الوصف </th>
+                                    <th>الملاحظات </th>
+                                    <th>السعر </th>
                                     <th>الحالة</th>
-                                    <th>صوره القسم</th>
+                                    <th>الزيارات</th>
+                                    <th>صوره المنيج</th>
                                     <th>الإجراءات</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @isset($categories)
+                                @isset($products)
                                     @php
                                         $row = 1;
                                     @endphp
-                                    @foreach ($categories as $category)
+                                    @foreach ($products as $product)
                                         <tr>
                                             <td>{{ $row++ }}</td>
-                                            <td>{{ $category->name }}</td>
-                                            <td>{{ $category->description }}</td>
-                                            @if ($category->is_active == 1)
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->description }}</td>
+                                            <td>{{ $product->note }}</td>
+                                            <td>{{ $product->price }}</td>
+                                            @if ($product->is_active == 1)
                                                 <td>مفعل</td>
-                                            @elseif($category->is_active == 0)
+                                            @elseif($product->is_active == 0)
                                                 <td>غير مفعل</td>
                                             @endif
+                                            <td>{{ $product->viewed }}</td>
+
                                             <td><img class="img-rounded" width="200" height="136"
-                                                    src="{{ asset('assets/images/categories/main/' . $category->image) }}"</td>
+                                                    src="{{ asset('assets/images/products/' . $product->image) }}"</td>
 
                                             <td colspan="3">
 
-                                                <a href="{{ route('admin.categories.main.edit', $category->id) }}"
+                                                <a href="{{ route('admin.products.edit', $product->id) }}"
                                                     class="btn btn-outline-primary">تعديل</a>
-
-                                                <a href="{{ route('admin.categories.main.active_desactive', $category->id) }}"
+                                                <a href="{{ route('admin.products.active_desactive', $product->id) }}"
                                                     class="btn btn-outline-warning">
-                                                    @if ($category->is_active == 0)
+                                                    @if ($product->is_active == 0)
                                                         تفعيل
                                                     @else
                                                         الغاء تفعيل
                                                     @endif
                                                 </a>
-                                                <a onclick="confirm('هل أنت متأكد من الحذف؟')" href="{{ route('admin.categories.main.destroy', $category->id) }}"
+                                                <a onclick="confirm('هل أنت متأكد من الحذف؟')" href="{{ route('admin.products.destroy', $product->id) }}"
                                                     class="btn btn-outline-danger">حذف</a>
 
                                             </td>

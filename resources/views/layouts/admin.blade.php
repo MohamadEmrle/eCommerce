@@ -57,7 +57,6 @@
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/css-rtl/style-rtl.css') }}">
     <!-- END Custom CSS-->
-    @notify_css
     @yield('style')
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
     <style>
@@ -78,9 +77,6 @@
     @yield('content')
     <!-- ////////////////////////////////////////////////////////////////////////////-->
     @include('admin.includes.footer')
-
-    @notify_js
-    @notify_render
 
     <!-- BEGIN VENDOR JS-->
     <script src="{{ asset('assets/admin/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
@@ -127,7 +123,7 @@
 
     <script src="{{ asset('assets/admin/js/scripts/modal/components-modal.js') }}" type="text/javascript"></script>
 
-    <script>
+    {{--  <script>
         $('#meridians1').timeDropper({
             meridians: true,
             setCurrentTime: false
@@ -186,7 +182,7 @@
             meridians: true,
             setCurrentTime: false
         });
-    </script>
+    </script>  --}}
     @yield('script')
 </body>
 
